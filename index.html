@@ -1,69 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Admin Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>SPS Result Portal</title>
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .header { text-align: center; padding: 20px; background: #1e3c72; color: white; border-radius: 15px; margin-bottom: 30px; }
-        .admin-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-            gap: 20px; max-width: 900px; margin: auto; 
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #f7f9fc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .admin-card {
-            background: white; padding: 25px 10px; border-radius: 20px;
-            text-align: center; text-decoration: none;
-            transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid #eee; display: flex; flex-direction: column; align-items: center;
+
+        /* 1. Top Header - Image 1.png Design */
+        .school-header {
+            width: 100%;
+            background: white;
+            border-bottom: 2px solid #ddd;
+            padding: 20px 0;
+            text-align: center;
         }
-        .admin-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); background: #f8f9ff; }
-        .admin-card i { font-size: 40px; margin-bottom: 15px; color: #1e3c72; }
-        .admin-card span { font-weight: 600; color: #333; font-size: 14px; }
+
+        .main-title {
+            color: #b71c1c; /* Marron/Red for title */
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .address-line {
+            color: #2e7d32; /* Green for address */
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 10px 0 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* 2. Notice Board Section - Image 0.png Design */
+        .notice-container {
+            width: 90%;
+            max-width: 500px;
+            margin-top: 30px; /* Space from header */
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 2px solid #37474f; /* Dark Blue border */
+        }
+
+        .notice-header {
+            background: #37474f; /* Dark Blue/Black header */
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .marquee-box {
+            height: auto; /* Allow auto-height, adjust for scroll */
+            padding: 20px;
+        }
+
+        /* Results Link - Image 0.png design */
+        .result-link {
+            display: block;
+            padding: 15px 12px;
+            margin-bottom: 15px;
+            background: #eef2f7;
+            color: #1a73e8; /* Default text color */
+            text-decoration: none;
+            border-radius: 8px;
+            border-left: 5px solid #1a73e8; /* Left Blue line */
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .result-link:hover {
+            background: #1a73e8;
+            color: white;
+            transform: translateX(8px);
+        }
+
+        /* NEW blinking badge */
+        .new-badge {
+            background: red;
+            color: white;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            margin-right: 12px;
+            font-weight: bold;
+            vertical-align: middle;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1><i class="fas fa-user-shield"></i> Master Admin Dashboard</h1>
-    <p>Control Everything From Here</p>
-</div>
+    <div class="school-header">
+        <h1 class="main-title">SAGAR PUBLIC SCHOOL</h1>
+        <p class="address-line">QUAZITOLA, BARSOI, KATIHAR, BIHAR 855102</p>
+    </div>
 
-<div class="admin-grid" id="btnContainer">
-    <p style="text-align:center; grid-column: 1/-1;">Loading Dashboard... ⏳</p>
-</div>
-
-<script>
-    // APNA APPS SCRIPT URL YAHAN DALEIN
-    const API_URL = "https://script.google.com/macros/s/AKfycbwIVeUc61bZPNE6uVdG4E46xkfOvoFDfTe4Ske6wNDiznn2GEhaq727y_UkzWPSYQNd/exec";
-
-    window.onload = function() {
-        fetch(API_URL)
-            .then(response => response.json())
-            .then(data => drawButtons(data))
-            .catch(err => {
-                document.getElementById('btnContainer').innerHTML = "Error loading data.";
-                console.error(err);
-            });
-    };
-
-    function drawButtons(btns) {
-        let container = document.getElementById('btnContainer');
-        if(!btns || btns.length === 0) {
-            container.innerHTML = "<p style='text-align:center; grid-column: 1/-1;'>No data found!</p>";
-            return;
-        }
+    <div class="notice-container">
+        <div class="notice-header">LIVE BUS TRACKING</div>
         
-        container.innerHTML = btns.map(b => `
-            <a href="${b.fullUrl}" class="admin-card">
-                <i class="${b.icon}"></i>
-                <span>${b.name}</span>
-            </a>
-        `).join('');
-    }
-</script>
+        <div class="marquee-box">
+            <marquee direction="up" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
+                
+                <a href="https://sagarpublicschool.github.io/bus_sps/" target="_blank" class="result-link">
+                    <span class="new-badge">BUS-01</span> Click here to view the result of matric exam
+                </a>
+
+                
+
+            </marquee>
+        </div>
+    </div>
+
 </body>
 </html>
